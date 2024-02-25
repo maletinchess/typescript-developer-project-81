@@ -103,5 +103,6 @@
     "include": [
       "src/index.ts",
       "src/tagGenerator.ts",
+      "src/__tests__/tagGenerator.test.ts"
     ]
 }
