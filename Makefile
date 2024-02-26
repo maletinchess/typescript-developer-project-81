@@ -12,8 +12,9 @@ start:
 
 test:
 	npm run test
+
 test-coverage:
-    npm run test-coverage
+	npm run test-coverage
 
 lint:
 	npm run lint
