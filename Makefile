@@ -18,3 +18,5 @@ test-coverage:
 
 lint:
 	npm run lint
+
+.PHONY: test
