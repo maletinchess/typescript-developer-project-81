@@ -32,9 +32,19 @@ jobs:
       
     - name: Run Tests
       run: npm test
-    - name: Test & publish code coverage
-      uses: paambaati/codeclimate-action@v5.0.0
+    - name: Run tests with coverage
+      run: make test-coverage
+      
+    - name: Save coverage report
+      run: |
+        mkdir -p ~/cc-test-reporter
+        cp ./coverage/lcov.info ~/cc-test-reporter/lcov.info
+    
+    - name: Upload coverage
       env:
-        CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-      with:
-        coverageCommand: make test-coverage
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/cc-test-reporter/test-reporter
+        chmod +x ~/cc-test-reporter/test-reporter
+        ~/cc-test-reporter/test-reporter format-coverage -t lcov ~/cc-test-reporter/lcov.info
+        ~/cc-test-reporter/test-reporter upload-coverage
