@@ -20,9 +20,8 @@ class Tag {
     const attributeString = Object.entries(this.attributes)
       .map(([key, value]) => `${key}="${value}"`)
       .join(' ');
-    const space = attributeString ? ' ' : '';
 
-    return `<${this.name.trim()}${space}${attributeString}>`;
+    return `<${this.name} ${attributeString}>`;
   }
 }
 
