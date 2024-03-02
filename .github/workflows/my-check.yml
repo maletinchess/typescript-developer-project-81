@@ -39,7 +39,7 @@ jobs:
     - name: Save coverage report
       run: |
         mkdir -p ~/cc-test-reporter
-        find . -name 'lcov.info' -exec cp {} ~/cc-test-reporter/ \;
+        cp coverage/coverage-final.json ~/cc-test-reporter/coverage-final.json
     
     - name: Upload coverage
       env:
