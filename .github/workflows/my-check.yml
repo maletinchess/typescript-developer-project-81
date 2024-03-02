@@ -34,7 +34,8 @@ jobs:
       run: npm test
     - name: Run tests with coverage
       run: make test-coverage
-      
+    - name: Debug List contents of coverage directory
+      run: ls -R coverage
     - name: Save coverage report
       run: |
         mkdir -p ~/cc-test-reporter
