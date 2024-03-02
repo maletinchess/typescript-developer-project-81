@@ -36,10 +36,9 @@ jobs:
       run: make test-coverage
     - name: Debug List contents of coverage directory
       run: ls -R coverage
-    - name: Save coverage report
+    - name: Format coverage
       run: |
-        mkdir -p ~/cc-test-reporter
-        cp coverage/coverage-final.json ~/cc-test-reporter/coverage-final.json
+        jq -r '.[] | {path: .path, lines: .lines} | select(.lines != null) | {path: .path, lines: .lines | to_entries | .[] | select(.value.hit > 0)}' ~/cc-test-reporter/coverage-final.json > ~/cc-test-reporter/cc.json
     
     - name: Upload coverage
       env:
@@ -47,5 +46,5 @@ jobs:
       run: |
         curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/cc-test-reporter/test-reporter
         chmod +x ~/cc-test-reporter/test-reporter
-        ~/cc-test-reporter/test-reporter format-coverage -t simplecov -o ~/cc-test-reporter/simplecov.json ~/cc-test-reporter/coverage-final.json
-        ~/cc-test-reporter/test-reporter upload-coverage -i ~/cc-test-reporter/simplecov.json
+        ~/cc-test-reporter/test-reporter format-coverage -t json -o ~/cc-test-reporter/codeclimate.json ~/cc-test-reporter/cc.json
+        ~/cc-test-reporter/test-reporter upload-coverage -i ~/cc-test-reporter/codeclimate.json
