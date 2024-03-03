@@ -32,25 +32,4 @@ jobs:
       
     - name: Run Tests
       run: npm test
-    - name: Run tests with coverage
-      run: make test-coverage
-    - name: Save coverage report
-      run: |
-        mkdir -p ~/cc-test-reporter
-        cp coverage/coverage-final.json ~/cc-test-reporter/coverage-final.json
-    
-    - name: List contents of directory
-      run: ls -l ~/cc-test-reporter/
-    
-    - name: Format coverage
-      run: |
-        jq -r '.[] | {path: .path, lines: .lines} | select(.lines != null) | {path: .path, lines: .lines | to_entries | .[] | select(.value.hit > 0)}' ~/cc-test-reporter/coverage-final.json > cc.json
-    
-    - name: Upload coverage
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      run: |
-        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ~/cc-test-reporter/test-reporter
-        chmod +x ~/cc-test-reporter/test-reporter
-        ~/cc-test-reporter/test-reporter format-coverage -t json -o ~/cc-test-reporter/codeclimate.json cc.json
-        ~/cc-test-reporter/test-reporter upload-coverage -i ~/cc-test-reporter/codeclimate.json
+      
