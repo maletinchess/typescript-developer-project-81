@@ -21,7 +21,9 @@ class Tag {
       .map(([key, value]) => `${key}="${value}"`)
       .join(' ');
 
-    return `<${this.name} ${attributeString}>`;
+    const space = attributeString ? ' ' : '';
+
+    return `<${this.name}${space}${attributeString}>`;
   }
 }
 

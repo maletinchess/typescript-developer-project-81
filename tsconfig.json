@@ -103,6 +103,8 @@
     "include": [
       "src/index.ts",
       "src/tagGenerator.ts",
-      "src/__tests__/tagGenerator.test.ts"
+      "src/hexleteCode.ts",
+      "src/__tests__/tagGenerator.test.ts",
+      "src/__tests__/hexleteCode.test.ts"
     ]
 }
